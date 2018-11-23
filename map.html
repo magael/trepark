@@ -3,7 +3,9 @@
     <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
     <script>
       map = new OpenLayers.Map("mapdiv");
-      map.addLayer(new OpenLayers.Layer.OSM());
+      map.addLayer(new OpenLayers.Layer.OSM({tileOptions: 
+       {crossOriginKeyword: null}
+    }));
   
       var lonLat = new OpenLayers.LonLat( 23.75144, 61.49751 )
             .transform(
