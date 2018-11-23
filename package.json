@@ -1,0 +1,25 @@
+{
+  "name": "trepark",
+  "version": "1.0.0",
+  "description": "parking solution tampere",
+  "main": "index.js",
+  "scripts": {
+  "test": "echo \"Error: no test specified\" && exit 1",
+  "start": "parcel index.html",
+  "build": "parcel build --public-url . index.html"
+},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/magael/trepark.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/magael/trepark/issues"
+  },
+  "homepage": "https://github.com/magael/trepark#readme",
+  "devDependencies": {
+    "parcel-bundler": "^1.10.3"
+  }
+    
+}

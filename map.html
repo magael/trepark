@@ -1,4 +1,9 @@
-<html><body>
+<!--<html>
+<head>
+    <link rel="stylesheet" href="https://openlayers.org/en/v5.3.0/css/ol.css" type="text/css">
+    <script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/build/ol.js"></script>
+</head>
+<body>
     <div id="mapdiv"></div>
     <script src="http://www.openlayers.org/api/OpenLayers.js"></script>
     <script>
@@ -23,3 +28,76 @@
       map.setCenter (lonLat, zoom);
     </script>
   </body></html>
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Draw Features</title>
+    <link rel="stylesheet" href="https://openlayers.org/en/v5.3.0/css/ol.css" type="text/css">
+    <script type="module">
+      import Map from '.../node_modules/ol/Map.js';
+      import View from '.../node_modules/ol/View.js';
+      import Draw from '.../node_modules/ol/interaction/Draw.js';
+      import {Tile as TileLayer, Vector as VectorLayer} from '.../node_modules/ol/layer.js';
+      import {OSM, Vector as VectorSource} from '.../node_modules/ol/source.js';
+    </script>
+  </head>
+  <body>
+    <div id="map" class="map"></div>
+    <form class="form-inline">
+      <label>Geometry type &nbsp;</label>
+      <select id="type">
+        <option value="Point">Point</option>
+        <option value="LineString">LineString</option>
+        <option value="Polygon">Polygon</option>
+        <option value="Circle">Circle</option>
+        <option value="None">None</option>
+      </select>
+    </form>
+    <script>
+      var raster = new TileLayer({
+        source: new OSM()
+      });
+
+      var source = new VectorSource({wrapX: false});
+
+      var vector = new VectorLayer({
+        source: source
+      });
+
+      var map = new Map({
+        layers: [raster, vector],
+        target: 'map',
+        view: new View({
+          center: [-11000000, 4600000],
+          zoom: 4
+        })
+      });
+
+      var typeSelect = document.getElementById('type');
+
+      var draw; // global so we can remove it later
+      function addInteraction() {
+        var value = typeSelect.value;
+        if (value !== 'None') {
+          draw = new Draw({
+            source: source,
+            type: typeSelect.value
+          });
+          map.addInteraction(draw);
+        }
+      }
+
+
+      /**
+       * Handle change event.
+       */
+      typeSelect.onchange = function() {
+        map.removeInteraction(draw);
+        addInteraction();
+      };
+
+      addInteraction();
+    </script>
+  </body>
+</html>
