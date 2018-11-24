@@ -93,14 +93,18 @@ function initMap() {
 }
 
 
+
 function park(parkArea) {
-  parkArea.parkHere();
-  console.log(parkArea.takenSpots + " " + parkArea.capacity);
+    parkArea.parkHere();
+    console.log(parkArea.takenSpots + " " + parkArea.capacity);
 }
 
 function leave(parkArea) {
   parkArea.leave();
   console.log(parkArea.takenSpots + " " + parkArea.capacity);
+}
+function parkHere(parkArea){
+parkHere = parkArea;
 }
 
 function initialize(parkArea, map, infowindow) {
