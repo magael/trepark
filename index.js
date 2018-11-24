@@ -69,7 +69,6 @@ new ParkArea("H", 5, [
 
 ];
 
-
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 8,
     center: polygonCenter(parkingAreas[0].polygon),
@@ -85,43 +84,7 @@ new ParkArea("H", 5, [
         initialize(element, map, infowindow);
   });
 
-}
-
-
-
-function park(parkArea) {
-    parkArea.parkHere();
-    console.log(parkArea.takenSpots + " " + parkArea.capacity);
-}
-
-function leave(parkArea) {
-  parkArea.leave();
-  console.log(parkArea.takenSpots + " " + parkArea.capacity);
-}
-function parkHere(parkArea){
-parkHere = parkArea;
-}
-
-function initialize(parkArea, map, infowindow) {
-<<<<<<< HEAD
-    parkArea.polygon.setMap(map);
-    parkArea.polygon.addListener('click', function(){
-      map.panTo(polygonCenter(parkArea.polygon));
-      infowindow.position = polygonCenter(parkArea.polygon);
-      infowindow.setContent(parkArea.info);
-      infowindow.open(map);
-});}
-=======
-  parkArea.polygon.setMap(map);
-  parkArea.polygon.addListener('click', function () {
-    map.panTo(polygonCenter(parkArea.polygon));
-    infowindow.content = parkarea.info;
-    infowindow.position = polygoncenter(parkarea.polygon);
-    infowindow.open(map);
-    
-  });
-
-  locationWindow = new google.maps.InfoWindow;
+ var locationWindow = new google.maps.InfoWindow();
 
   // Try HTML5 geolocation.
   if (navigator.geolocation) {
@@ -142,7 +105,6 @@ function initialize(parkArea, map, infowindow) {
     // Browser doesn't support Geolocation
     handleLocationError(false, locationWindow, map.getCenter());
   }
-}
 
   function handleLocationError(browserHasGeolocation, locationWindow, pos) {
     locationWindow.setPosition(pos);
@@ -151,10 +113,27 @@ function initialize(parkArea, map, infowindow) {
       'Error: Your browser doesn\'t support geolocation.');
     locationWindow.open(map);
   }
->>>>>>> 9c6ed7741cf4032ad430f64b4b90ef4ec8238b42
+}
 
+function park(parkArea) {
+    parkArea.parkHere();
+    console.log(parkArea.takenSpots + " " + parkArea.capacity);
+}
 
+function leave(parkArea) {
+  parkArea.leave();
+  console.log(parkArea.takenSpots + " " + parkArea.capacity);
+}
 
+function initialize(parkArea, map, infowindow) {
+
+    parkArea.polygon.setMap(map);
+    parkArea.polygon.addListener('click', function(){
+      map.panTo(polygonCenter(parkArea.polygon));
+      infowindow.position = polygonCenter(parkArea.polygon);
+      infowindow.setContent(parkArea.info);
+      infowindow.open(map);
+});}
 
 function polygonCenter(poly) {
   var lowx,
