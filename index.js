@@ -91,32 +91,37 @@ function initMap() {
     initialize(element, map, infowindow);
   });
   var locationWindow = new google.maps.InfoWindow();
-  function CenterControl(controlDiv, map) {
-    var controlUI = document.createElement('div');
-    controlUI.style.backgroundColor = '#fff';
-    controlUI.style.border = '2px solid #fff';
-    controlUI.style.borderRadius = '3px';
-    controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
-    controlUI.style.cursor = 'pointer';
-    controlUI.style.marginBottom = '22px';
-    controlUI.style.textAlign = 'center';
-    controlUI.title = 'Click to recenter the map';
-    controlDiv.appendChild(controlUI);
+    function CenterControl(controlDiv, map) {
+      var controlUI = document.createElement('div');
+      controlUI.style.backgroundColor = '#fff';
+      controlUI.style.border = '2px solid #fff';
+      controlUI.style.borderRadius = '3px';
+      controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+      controlUI.style.cursor = 'pointer';
+      controlUI.style.marginBottom = '22px';
+      controlUI.style.textAlign = 'center';
+      controlUI.title = 'Click to recenter the map';
+      controlDiv.appendChild(controlUI);
 
-    var controlText = document.createElement('div');
-    controlText.style.color = 'rgb(25,25,25)';
-    controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
-    controlText.style.fontSize = '16px';
-    controlText.style.lineHeight = '38px';
-    controlText.style.paddingLeft = '5px';
-    controlText.style.paddingRight = '5px';
-    controlText.innerHTML = 'Locate Me';
-    controlUI.appendChild(controlText);
+      var controlText = document.createElement('div');
+      controlText.style.color = 'rgb(25,25,25)';
+      controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+      controlText.style.fontSize = '16px';
+      controlText.style.lineHeight = '38px';
+      controlText.style.paddingLeft = '5px';
+      controlText.style.paddingRight = '5px';
+      controlText.innerHTML = 'Locate Me';
+      controlUI.appendChild(controlText);
 
-    controlUI.addEventListener('click', function () {
-      locate(locationWindow, map);
-    });
-  }
+      controlUI.addEventListener('click', function() {
+          var pos = locate(locationWindow, map, parkingAreas);
+      });
+    }
+
+var centerControlDiv = document.createElement('div');
+var centerControl = new CenterControl(centerControlDiv, map);
+centerControlDiv.index = 1;
+map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
 
   var centerControlDiv = document.createElement('div');
   var centerControl = new CenterControl(centerControlDiv, map);
@@ -134,8 +139,8 @@ function initMap() {
 
 }
 
-function locate(locationWindow, map) {
-  // Try HTML5 geolocation.
+function locate(locationWindow, map, parkingAreas) {
+    // Try HTML5 geolocation.
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function (position) {
       var pos = {
@@ -144,9 +149,16 @@ function locate(locationWindow, map) {
       };
 
       locationWindow.setPosition(pos);
-      locationWindow.setContent('Location found.');
+      locationWindow.setContent('You are not inside a TrePark area. Parking here will not earn you minutes.');
       locationWindow.open(map);
       map.setCenter(pos);
+
+      parkingAreas.forEach(function (element) {
+         if (google.maps.geometry.poly.containsLocation(new google.maps.LatLng(pos.lat, pos.lng), element.polygon)) {
+            locationWindow.setContent("You are inside a TrePark area. Park here to earn minutes");
+            return;
+        }
+      });
     }, function () {
       handleLocationError(true, locationWindow, map.getCenter());
     });
