@@ -3,10 +3,10 @@ function initMap() {
   var parkingAreas = [
 
     new ParkArea("Dipoli1", 3, [
-      { lat: 60.185282, lng: 24.832844 },
-      { lat: 60.184929, lng: 24.832073 },
-      { lat: 60.184649, lng: 24.832339 },
-      { lat: 60.184905, lng: 24.833318 },
+      { lat: 60.185500, lng: 24.832000 },
+      { lat: 60.184800, lng: 24.831200 },
+      { lat: 60.184649, lng: 24.832500 },
+      { lat: 60.185200, lng: 24.833200 },
     ], "Dipoli demo area 1"),
 
     new ParkArea("A", 5, [
