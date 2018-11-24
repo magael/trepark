@@ -160,12 +160,7 @@ function locate(locationWindow, map) {
 
 
 function park(parkArea) {
-<<<<<<< HEAD
     parkArea.parkHere();
-=======
-  parkArea.parkHere();
-  console.log(parkArea.takenSpots + " " + parkArea.capacity);
->>>>>>> 0deac6cee276281217d08d403bcfa95461deb886
 }
 
 function leave(parkArea) {
