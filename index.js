@@ -114,7 +114,7 @@ function initMap() {
       controlUI.appendChild(controlText);
 
       controlUI.addEventListener('click', function() {
-          var pos = locate(locationWindow, map, parkingAreas);
+          locate(locationWindow, map, parkingAreas);
       });
     }
 
