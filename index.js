@@ -1,20 +1,23 @@
 function initMap() {
-  var areaA = new ParkArea("A", 5, [
+
+var parkingAreas = [ 
+
+new ParkArea("A", 5, [
     {lat: 60.187897, lng: 24.817114},
     {lat: 60.187278, lng: 24.822802},
     {lat: 60.186467, lng: 24.822302},
     {lat: 60.186958, lng: 24.816837}
-    ], "ilmaisia tiensivupaikkoja");
+    ], "ilmaisia tiensivupaikkoja"), 
 
-var areaB = new ParkArea("B", 5, [
+new ParkArea("B", 5, [
     {lat: 60.186908, lng: 24.822785},
     {lat: 60.18598 , lng: 24.826146},
     {lat: 60.188766, lng: 24.829486},
     {lat: 60.189443, lng: 24.824885},
     {lat: 60.188296, lng: 24.823512}], 
-    "maksullisia paikkoja");
+    "maksullisia paikkoja"),
 
-var areaC = new ParkArea("Otakaari", 10, [
+new ParkArea("Otakaari", 10, [
     {lat: 60.188787, lng: 24.829688},
     {lat: 60.189536, lng: 24.829764},
     {lat: 60.190312, lng: 24.831174},
@@ -29,73 +32,66 @@ var areaC = new ParkArea("Otakaari", 10, [
     {lat: 60.190386, lng: 24.830861},
     {lat: 60.189726, lng: 24.82971},
     {lat: 60.189586, lng: 24.82955},
-    {lat: 60.188846, lng: 24.829511}], "ilmaisia tiensivupaikkoja");
+    {lat: 60.188846, lng: 24.829511}], "ilmaisia tiensivupaikkoja"),
 
-var areaD = new ParkArea("D", 5, [
+new ParkArea("D", 5, [
     {lat: 60.19063, lng: 24.833971},
     {lat: 60.190741, lng: 24.834881},
     {lat: 60.190817, lng: 24.835414},
     {lat: 60.190898, lng: 24.835593},
     {lat: 60.19094, lng: 24.835521},
     {lat: 60.190879, lng: 24.835373},
-    {lat: 60.19068, lng: 24.833883}], "muutama tiensivupaikka, ilmaisia");
+    {lat: 60.19068, lng: 24.833883}], "muutama tiensivupaikka, ilmaisia"),
 
-var areaE = new ParkArea("E", 40, [
+new ParkArea("E", 40, [
     {lat: 60.185926, lng: 24.835713},
     {lat: 60.185939, lng: 24.837251},
     {lat: 60.184927, lng: 24.837309},
-    {lat: 60.184966, lng: 24.835842}], "urheilupuiston parkkipaikka");
+    {lat: 60.184966, lng: 24.835842}], "urheilupuiston parkkipaikka"),
 
-var areaF = new ParkArea("F", 10, [
+new ParkArea("F", 10, [
     {lat: 60.183183, lng: 24.827766},
     {lat: 60.18293, lng: 24.827215},
     {lat: 60.182433, lng: 24.828231},
-    {lat: 60.182682, lng: 24.828904}], "Sportsfield free parking");
+    {lat: 60.182682, lng: 24.828904}], "Sportsfield free parking"),
 
-var areaG = new ParkArea("G", 20, [
+new ParkArea("G", 20, [
     {lat: 60.179697, lng: 24.8277},
     {lat: 60.179069, lng: 24.828015},
     {lat: 60.179222, lng: 24.829053},
-    {lat: 60.180005, lng: 24.828567}], "Free parking on weekends");
+    {lat: 60.180005, lng: 24.828567}], "Free parking on weekends"),
 
-var areaH = new ParkArea("H", 5, [
+new ParkArea("H", 5, [
     {lat: 60.187907, lng: 24.837418},
     {lat: 60.187893, lng: 24.837475},
     {lat: 60.187676, lng: 24.83705},
-    {lat: 60.187722, lng: 24.83696}], "Museum parking");
+    {lat: 60.187722, lng: 24.83696}], "Museum parking")
+
+];
+
 
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 8,
-    center: polygonCenter(areaA.polygon),
+    center: polygonCenter(parkingAreas[0].polygon),
     mapTypeId: 'terrain'
   });
-
-  var contentString = "bla";
  
   var infowindow = new google.maps.InfoWindow({
-          content: contentString
+    position: polygonCenter(parkingAreas[0].polygon),
+    content: parkingAreas[0].info
         });
 
-  initialize(areaA, map, infowindow);
-  initialize(areaB, map, infowindow);
-  initialize(areaC, map, infowindow);
-  initialize(areaD, map, infowindow);
-  initialize(areaE, map, infowindow);
-  initialize(areaF, map, infowindow);
-  initialize(areaG, map, infowindow);
-  initialize(areaH, map, infowindow);
 
-  park(areaA);
-  park(areaA);
-  park(areaA);
-  park(areaA);
+  parkingAreas.forEach(function(element) {
+        initialize(element, map, infowindow);
+  });
 
 }
 
 
 function park(parkArea) {
     parkArea.parkHere();
-     console.log(parkArea.takenSpots + " " + parkArea.capacity);
+    console.log(parkArea.takenSpots + " " + parkArea.capacity);
 }
 
 function leave(parkArea) {
@@ -107,10 +103,9 @@ function initialize(parkArea, map, infowindow) {
     parkArea.polygon.setMap(map);
     parkArea.polygon.addListener('click', function(){
       map.panTo(polygonCenter(parkArea.polygon));
-      infowindow.content = parkArea.info;
       infowindow.position = polygonCenter(parkArea.polygon);
+      infowindow.setContent(parkArea.info);
       infowindow.open(map);
-
 });}
 
 
