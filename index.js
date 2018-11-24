@@ -40,14 +40,18 @@ var bermudaTriangle = new ParkArea("A", 5, [
 }
 
 
+
 function park(parkArea) {
-    parkArea.parkHere();
+    
      console.log(parkArea.takenSpots + " " + parkArea.capacity);
 }
 
 function leave(parkArea) {
     parkArea.leave();
     console.log(parkArea.takenSpots + " " + parkArea.capacity);
+}
+function parkHere(parkArea){
+parkHere = parkArea;
 }
 
 function initialize(parkArea, map, infowindow) {
