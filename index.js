@@ -114,7 +114,7 @@ function initMap() {
       controlUI.appendChild(controlText);
 
       controlUI.addEventListener('click', function() {
-          locate(locationWindow, map);
+          var pos = locate(locationWindow, map, parkingAreas);
       });
     }
 
@@ -127,7 +127,7 @@ map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
 
 }
 
-function locate(locationWindow, map) {
+function locate(locationWindow, map, parkingAreas) {
     // Try HTML5 geolocation.
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function (position) {
@@ -140,6 +140,13 @@ function locate(locationWindow, map) {
       locationWindow.setContent('Location found.');
       locationWindow.open(map);
       map.setCenter(pos);
+
+      parkingAreas.forEach(function (element) {
+         if (google.maps.geometry.poly.containsLocation(new google.maps.LatLng(pos.lat, pos.lng), element.polygon)) {
+            locationWindow.setContent("You are inside a parking area. Park here to earn minutes");
+            return;
+        } //else {locationWindow.setContent("You are not inside a parking area. Parking here doesn't earn you minutes");}
+      });
     }, function () {
       handleLocationError(true, locationWindow, map.getCenter());
     });
