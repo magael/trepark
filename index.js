@@ -83,10 +83,45 @@ new ParkArea("H", 5, [
   parkingAreas.forEach(function(element) {
         initialize(element, map, infowindow);
   });
+  var locationWindow = new google.maps.InfoWindow();
+    function CenterControl(controlDiv, map) {
+      var controlUI = document.createElement('div');
+      controlUI.style.backgroundColor = '#fff';
+      controlUI.style.border = '2px solid #fff';
+      controlUI.style.borderRadius = '3px';
+      controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+      controlUI.style.cursor = 'pointer';
+      controlUI.style.marginBottom = '22px';
+      controlUI.style.textAlign = 'center';
+      controlUI.title = 'Click to recenter the map';
+      controlDiv.appendChild(controlUI);
 
- var locationWindow = new google.maps.InfoWindow();
+      var controlText = document.createElement('div');
+      controlText.style.color = 'rgb(25,25,25)';
+      controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+      controlText.style.fontSize = '16px';
+      controlText.style.lineHeight = '38px';
+      controlText.style.paddingLeft = '5px';
+      controlText.style.paddingRight = '5px';
+      controlText.innerHTML = 'Locate Me';
+      controlUI.appendChild(controlText);
 
-  // Try HTML5 geolocation.
+      controlUI.addEventListener('click', function() {
+          locate(locationWindow, map);
+      });
+    }
+
+var centerControlDiv = document.createElement('div');
+var centerControl = new CenterControl(centerControlDiv, map);
+centerControlDiv.index = 1;
+map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
+
+
+
+}
+
+function locate(locationWindow, map) {
+    // Try HTML5 geolocation.
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function (position) {
       var pos = {
@@ -115,14 +150,14 @@ new ParkArea("H", 5, [
   }
 }
 
+
+
 function park(parkArea) {
     parkArea.parkHere();
-    console.log(parkArea.takenSpots + " " + parkArea.capacity);
 }
 
 function leave(parkArea) {
-  parkArea.leave();
-  console.log(parkArea.takenSpots + " " + parkArea.capacity);
+    parkArea.leave();
 }
 
 function initialize(parkArea, map, infowindow) {
