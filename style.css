@@ -80,7 +80,10 @@ input[type=text], input[type=password] {
   
 }
 input::placeholder{
-  color:white;
+  color:black;
+  
+    font-weight: 900;
+font-size:24px;
 }
 .imgcontainer {
   text-align: center;
