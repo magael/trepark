@@ -1,26 +1,24 @@
-function initMap() {
-  var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 5,
-    center: {lat: 24.886, lng: -70.268},
-    mapTypeId: 'terrain'
-  });
+function polygonCenter(poly) {
+    var lowx,
+        highx,
+        lowy,
+        highy,
+        lats = [],
+        lngs = [],
+        vertices = poly.getPath();
 
-  // Define the LatLng coordinates for the polygon's path.
-  var triangleCoords = [
-    {lat: 25.774, lng: -80.190},
-    {lat: 18.466, lng: -66.118},
-    {lat: 32.321, lng: -64.757},
-    {lat: 25.774, lng: -80.190}
-  ];
+    for(var i=0; i<vertices.length; i++) {
+      lngs.push(vertices.getAt(i).lng());
+      lats.push(vertices.getAt(i).lat());
+    }
 
-  // Construct the polygon.
-  var bermudaTriangle = new google.maps.Polygon({
-    paths: triangleCoords,
-    strokeColor: '#FF0000',
-    strokeOpacity: 0.8,
-    strokeWeight: 2,
-    fillColor: '#FF0000',
-    fillOpacity: 0.35
-  });
-  bermudaTriangle.setMap(map);
-}
+    lats.sort();
+    lngs.sort();
+    lowx = lats[0];
+    highx = lats[vertices.length - 1];
+    lowy = lngs[0];
+    highy = lngs[vertices.length - 1];
+    center_x = lowx + ((highx-lowx) / 2);
+    center_y = lowy + ((highy - lowy) / 2);
+    return (new google.maps.LatLng(center_x, center_y));
+  }
