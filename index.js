@@ -81,12 +81,12 @@ new ParkArea("H", 5, [
     content: parkingAreas[0].info
         });
 
-
   parkingAreas.forEach(function(element) {
         initialize(element, map, infowindow);
   });
 
 }
+
 
 
 function park(parkArea) {
@@ -95,11 +95,15 @@ function park(parkArea) {
 }
 
 function leave(parkArea) {
-    parkArea.leave();
-    console.log(parkArea.takenSpots + " " + parkArea.capacity);
+  parkArea.leave();
+  console.log(parkArea.takenSpots + " " + parkArea.capacity);
+}
+function parkHere(parkArea){
+parkHere = parkArea;
 }
 
 function initialize(parkArea, map, infowindow) {
+<<<<<<< HEAD
     parkArea.polygon.setMap(map);
     parkArea.polygon.addListener('click', function(){
       map.panTo(polygonCenter(parkArea.polygon));
@@ -107,32 +111,72 @@ function initialize(parkArea, map, infowindow) {
       infowindow.setContent(parkArea.info);
       infowindow.open(map);
 });}
+=======
+  parkArea.polygon.setMap(map);
+  parkArea.polygon.addListener('click', function () {
+    map.panTo(polygonCenter(parkArea.polygon));
+    infowindow.content = parkarea.info;
+    infowindow.position = polygoncenter(parkarea.polygon);
+    infowindow.open(map);
+    
+  });
+
+  locationWindow = new google.maps.InfoWindow;
+
+  // Try HTML5 geolocation.
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      var pos = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+
+      locationWindow.setPosition(pos);
+      locationWindow.setContent('Location found.');
+      locationWindow.open(map);
+      map.setCenter(pos);
+    }, function () {
+      handleLocationError(true, locationWindow, map.getCenter());
+    });
+  } else {
+    // Browser doesn't support Geolocation
+    handleLocationError(false, locationWindow, map.getCenter());
+  }
+}
+
+  function handleLocationError(browserHasGeolocation, locationWindow, pos) {
+    locationWindow.setPosition(pos);
+    locationWindow.setContent(browserHasGeolocation ?
+      'Error: The Geolocation service failed.' :
+      'Error: Your browser doesn\'t support geolocation.');
+    locationWindow.open(map);
+  }
+>>>>>>> 9c6ed7741cf4032ad430f64b4b90ef4ec8238b42
 
 
 
 
 function polygonCenter(poly) {
-    var lowx,
-        highx,
-        lowy,
-        highy,
-        lats = [],
-        lngs = [],
-        vertices = poly.getPath();
+  var lowx,
+    highx,
+    lowy,
+    highy,
+    lats = [],
+    lngs = [],
+    vertices = poly.getPath();
 
-    for(var i=0; i<vertices.length; i++) {
-      lngs.push(vertices.getAt(i).lng());
-      lats.push(vertices.getAt(i).lat());
-    }
-
-    lats.sort();
-    lngs.sort();
-    lowx = lats[0];
-    highx = lats[vertices.length - 1];
-    lowy = lngs[0];
-    highy = lngs[vertices.length - 1];
-    center_x = lowx + ((highx-lowx) / 2);
-    center_y = lowy + ((highy - lowy) / 2);
-    return (new google.maps.LatLng(center_x, center_y));
+  for (var i = 0; i < vertices.length; i++) {
+    lngs.push(vertices.getAt(i).lng());
+    lats.push(vertices.getAt(i).lat());
   }
 
+  lats.sort();
+  lngs.sort();
+  lowx = lats[0];
+  highx = lats[vertices.length - 1];
+  lowy = lngs[0];
+  highy = lngs[vertices.length - 1];
+  center_x = lowx + ((highx - lowx) / 2);
+  center_y = lowy + ((highy - lowy) / 2);
+  return (new google.maps.LatLng(center_x, center_y));
+}

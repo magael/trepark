@@ -1,11 +1,49 @@
 /* Always set the map height explicitly to define the size of the div
  * element that contains the map. */
 #map {
-  height:90%;
+  height: 90%;
 }
 /* Optional: Makes the sample page fill the window. */
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+}
+.leaveNow{
+  
+  float:right;
+}
+.infotext{
+  text-align: center;
+}
+.header{
+  text-align:center;
+}
+.container{
+  align-content: center;
+  
+    padding: 16px;
+
+}
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  text-align:center;
+}
+.imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
 }
