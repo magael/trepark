@@ -26,7 +26,7 @@ html, body {
 
 }
 .usrbtn{
-  background-color: #4CAF50;
+  background-color: rgb(32, 116, 185);
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -34,8 +34,9 @@ html, body {
   cursor: pointer;
   width: 100%;
 }
+
 .pswbtn{
-  background-color: #4CAF50;
+  background-color: rgb(32, 116, 185);
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -74,8 +75,26 @@ input[type=text], input[type=password] {
   border: 1px solid #ccc;
   box-sizing: border-box;
   text-align:center;
+  background: transparent;
+  
+  
+}
+input::placeholder{
+  color:white;
 }
 .imgcontainer {
   text-align: center;
   margin: 24px 0 12px 0;
+}
+.bg {
+  /* The image used */
+  background-image: url("background-blur-clean-531880.jpg");
+
+  /* Full height */
+  height: 100%; 
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }

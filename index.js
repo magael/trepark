@@ -159,6 +159,7 @@ function locate(locationWindow, map) {
 
 
 
+
 function park(parkArea) {
     parkArea.parkHere();
 }
