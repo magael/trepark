@@ -137,15 +137,15 @@ function locate(locationWindow, map, parkingAreas) {
       };
 
       locationWindow.setPosition(pos);
-      locationWindow.setContent('Location found.');
+      locationWindow.setContent('You are not inside a TrePark area. Parking here will not earn you minutes.');
       locationWindow.open(map);
       map.setCenter(pos);
 
       parkingAreas.forEach(function (element) {
          if (google.maps.geometry.poly.containsLocation(new google.maps.LatLng(pos.lat, pos.lng), element.polygon)) {
-            locationWindow.setContent("You are inside a parking area. Park here to earn minutes");
+            locationWindow.setContent("You are inside a TrePark area. Park here to earn minutes");
             return;
-        } //else {locationWindow.setContent("You are not inside a parking area. Parking here doesn't earn you minutes");}
+        }
       });
     }, function () {
       handleLocationError(true, locationWindow, map.getCenter());
