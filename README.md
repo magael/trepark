@@ -4,9 +4,7 @@ TrePark is an app for locating free parking spots in a city environment. By mini
 
 ### Links:
 
-[Try it online!](https://magael.github.io/trepark/)
-
-[Login page (optional)](https://magael.github.io/trepark/login.html)
+[Try it online!](https://magael.github.io/trepark/)(https://magael.github.io/trepark/login.html)
 
 username: admin
 
