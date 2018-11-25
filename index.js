@@ -25,7 +25,7 @@ function initMap() {
       { lat: 60.188296, lng: 24.823512 }],
       "maksullisia paikkoja"),
 
-    new ParkArea("Otakaari", 10, [
+    new ParkArea("Otakaari", 5, [
       { lat: 60.188787, lng: 24.829688 },
       { lat: 60.189536, lng: 24.829764 },
       { lat: 60.190312, lng: 24.831174 },
@@ -51,19 +51,19 @@ function initMap() {
       { lat: 60.190879, lng: 24.835373 },
       { lat: 60.19068, lng: 24.833883 }], "muutama tiensivupaikka, ilmaisia"),
 
-    new ParkArea("E", 40, [
+    new ParkArea("E", 5, [
       { lat: 60.185926, lng: 24.835713 },
       { lat: 60.185939, lng: 24.837251 },
       { lat: 60.184927, lng: 24.837309 },
-      { lat: 60.184966, lng: 24.835842 }], "urheilupuiston parkkipaikka"),
+      { lat: 60.184966, lng: 24.835842 }], "Sportsfield parking lot. Several free parking spaces."),
 
-    new ParkArea("F", 10, [
+    new ParkArea("F", 5, [
       { lat: 60.183183, lng: 24.827766 },
       { lat: 60.18293, lng: 24.827215 },
       { lat: 60.182433, lng: 24.828231 },
       { lat: 60.182682, lng: 24.828904 }], "Sportsfield free parking"),
 
-    new ParkArea("G", 20, [
+    new ParkArea("G", 5, [
       { lat: 60.179697, lng: 24.8277 },
       { lat: 60.179069, lng: 24.828015 },
       { lat: 60.179222, lng: 24.829053 },
@@ -76,6 +76,27 @@ function initMap() {
       { lat: 60.187722, lng: 24.83696 }], "Museum parking")
 
   ];
+
+  park(parkingAreas[1]);
+  park(parkingAreas[1]);
+  park(parkingAreas[1]);
+  park(parkingAreas[1]);
+
+  park(parkingAreas[3]);
+  park(parkingAreas[3]);
+  park(parkingAreas[3]);
+  park(parkingAreas[3]);
+
+  park(parkingAreas[2]);
+  park(parkingAreas[2]);
+  park(parkingAreas[2]);
+  park(parkingAreas[2]);
+  park(parkingAreas[2]);
+
+  park(parkingAreas[6]);
+  park(parkingAreas[6]);
+  park(parkingAreas[6]);
+  park(parkingAreas[6]);
 
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 14,
@@ -185,11 +206,11 @@ function locate(locationWindow, map, parkingAreas) {
   }
 }
 
-function park(parkArea, user) {
+function park(parkArea /*user*/) {
   parkArea.parkHere();
   //user.setParked(true);
-  user.parked = true;
-  return new ParkingEvent(user, d.getTime(), parkArea);
+  //user.parked = true;
+  //return new ParkingEvent(user, d.getTime(), parkArea);
 }
 
 function leave(parkArea) {
