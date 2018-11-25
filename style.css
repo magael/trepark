@@ -1,6 +1,6 @@
 /* Always set the map height explicitly to define the size of the div
  * element that contains the map. */
-#map {
+ #map {
   height: 80%;
 }
 /* Optional: Makes the sample page fill the window. */
@@ -32,7 +32,11 @@ html, body {
   margin: 8px 0;
   border: none;
   cursor: pointer;
-  width: 100%;
+  width: 33%;
+  display: block;
+  margin: 0 auto;
+  display: block;
+  border-radius:25px
 }
 
 .pswbtn{
@@ -42,7 +46,10 @@ html, body {
   margin: 8px 0;
   border: none;
   cursor: pointer;
-  width: 100%;
+  width: 33%;
+  margin: 10px auto;
+  display: block;
+  border-radius:25px
 }
 .parkbtn{
   background-color: rgb(54, 158, 218);
@@ -52,6 +59,9 @@ html, body {
   border: none;
   cursor: pointer;
   width: 49%;
+  border-radius:25px;
+  
+  
 
 }
 .leavebtn{
@@ -62,20 +72,23 @@ html, body {
   border: none;
   cursor: pointer;
   width: 49%;
+  border-radius:25px
 
 }
 .infotext{
   font-weight: bold;
 }
 input[type=text], input[type=password] {
-  width: 100%;
+  width: 33%;
   padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
+  margin: 0 auto;
+  display: block;
+font-size:20px;
   box-sizing: border-box;
   text-align:center;
   background: transparent;
+  font-weight:900;
+  border-radius:25px;
   
   
 }

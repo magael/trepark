@@ -88,6 +88,15 @@ function initMap() {
     content: parkingAreas[0].info
   });
 
+  // create user
+  var userPos = {
+    lat: 0,
+    lng: 0
+  };
+  var d = new Date();
+  var startTime = 10; // initialize test user with 10 minutes of parking time;
+  var user = new User(userPos, startTime);
+
   parkingAreas.forEach(function (element) {
     initialize(element, map, infowindow);
   });
@@ -123,30 +132,13 @@ function initMap() {
   var centerControlDiv = document.createElement('div');
   var centerControl = new CenterControl(centerControlDiv, map);
   centerControlDiv.index = 1;
-  map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(centerControlDiv);
-
-  // create user
-  var userPos = {
-    lat: 0,
-    lng: 0
-  }
-  var d = new Date();
-  var startTime = 10; // initialize test user with 10 minutes of parking time;
-  var user = new User(userPos, startTime);
-
-  park(parkingAreas[0]);
-park(parkingAreas[0]);
-park(parkingAreas[0]);
-park(parkingAreas[0]);
-park(parkingAreas[0]);
-park(parkingAreas[0]);
+  map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
 
 }
 
 function parkButtonTest(){
     this.currentArea.parkHere();
 }
-
 
 function locate(locationWindow, map, parkingAreas) {
   // Try HTML5 geolocation.
@@ -193,9 +185,14 @@ function locate(locationWindow, map, parkingAreas) {
   }
 }
 
-function park(parkArea) {
+function parkButtonTest() {
+  console.log("mmmoro")
+}
+
+function park(parkArea, user) {
   parkArea.parkHere();
-  user.setParked(true);
+  //user.setParked(true);
+  user.parked = true;
   return new ParkingEvent(user, d.getTime(), parkArea);
 }
 
@@ -205,8 +202,10 @@ function leave(parkArea) {
 
 function leave(parkArea, parkingEvent) {
   parkArea.leave();
-  user.setParked(false);
-  user.setTime(parkingEvent.getDuration);
+  //user.setParked(false);
+  //user.setTime(parkingEvent.getDuration());
+  user.parked = false;
+  user.time = parkingEvent.getDuration();
 }
 
 function initialize(parkArea, map, infowindow) {
