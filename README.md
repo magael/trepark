@@ -26,6 +26,7 @@ The gamification system (not yet implemented):
 - There is a time limit to avoid spamming the buttons.
 - There is a daily limit to avoid abusing the system.
 - The user cannot park at the same spot twice in a short time period.
+- Parking in less utilized areas, further away from the city center will earn bigger rewards.
 
 The app is appliable to any city world wide, but we hope to get the opportunity to develop it further with the city of Tampere.
 We created TrePark for the city of Tampere challenges of Junction Hackathon 2018.
