@@ -1,3 +1,4 @@
+var currentArea;
 function initMap() {
 
   var parkingAreas = [
@@ -122,12 +123,7 @@ function initMap() {
   var centerControlDiv = document.createElement('div');
   var centerControl = new CenterControl(centerControlDiv, map);
   centerControlDiv.index = 1;
-  map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
-
-  var centerControlDiv = document.createElement('div');
-  var centerControl = new CenterControl(centerControlDiv, map);
-  centerControlDiv.index = 1;
-  map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
+  map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(centerControlDiv);
 
   // create user
   var userPos = {
@@ -138,7 +134,19 @@ function initMap() {
   var startTime = 10; // initialize test user with 10 minutes of parking time;
   var user = new User(userPos, startTime);
 
+  park(parkingAreas[0]);
+park(parkingAreas[0]);
+park(parkingAreas[0]);
+park(parkingAreas[0]);
+park(parkingAreas[0]);
+park(parkingAreas[0]);
+
 }
+
+function parkButtonTest(){
+    this.currentArea.parkHere();
+}
+
 
 function locate(locationWindow, map, parkingAreas) {
   // Try HTML5 geolocation.
@@ -154,12 +162,20 @@ function locate(locationWindow, map, parkingAreas) {
       locationWindow.open(map);
       map.setCenter(pos);
 
-      parkingAreas.forEach(function (element) {
-        if (google.maps.geometry.poly.containsLocation(new google.maps.LatLng(pos.lat, pos.lng), element.polygon)) {
+      var success = null;
+
+      for (var i = 0; i < parkingAreas.length; i++) {
+        var current = parkingAreas[i];
+        if (google.maps.geometry.poly.containsLocation(new google.maps.LatLng(pos.lat, pos.lng), current.polygon)) {
           locationWindow.setContent("You are inside a TrePark area. Park here to earn minutes");
-          return;
+          success = current;
+          this.currentArea = current;
+          console.log(this.currentArea);
+          return success;
         }
-      });
+         
+      }
+
     }, function () {
       handleLocationError(true, locationWindow, map.getCenter());
     });

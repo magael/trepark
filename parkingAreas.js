@@ -8,36 +8,30 @@ function ParkArea(name, capacity, coordinateArray, info) {
     strokeOpacity: 0.8,
     strokeWeight: 2,
     fillColor: '#00B32C',
-    fillOpacity: 0.25
+    fillOpacity: 0.4
   });
     this.info = info;
     this.parkHere = function() {
     	this.takenSpots++;
     	this.updateColor();
-    }
+    };
     this.leave = function() {
     	this.takenSpots--;
     	this.updateColor();
-    }
+    };
     this.updateColor = function() {
     	if ((this.takenSpots/this.capacity) < 0.5) {
-    		this.polygon.strokeColor = '#00B32C';
-    		this.polygon.fillColor = '#00B32C';
+    		this.polygon.setOptions({fillColor: '#00B32C', strokeColor:'#00B32C'});
     		return;
     	} 
     	if ((this.takenSpots/this.capacity) < 0.8) {
-    		this.polygon.strokeColor = '#FFFF00';
-    		this.polygon.fillColor = '#FFFF00';
+    		this.polygon.setOptions({fillColor: '#FFFF00', strokeColor: '#FFFF00'});
     		return;
     	}
     	if ((this.takenSpots/this.capacity) < 0.9) {
-    		this.polygon.strokeColor = '#FFCC00';
-    		this.polygon.fillColor = '#FFCC00';
+    		this.polygon.setOptions({fillColor: '#FFCC00', strokeColor: '#FFCC00'});
     		return;
     	}
-
-    	this.polygon.strokeColor = '#FF0000';
-    	this.polygon.fillColor = '#FF0000';
-
-    }
+    	this.polygon.setOptions({fillColor: '#FF0000', strokeColor:'#FF0000'});
+    };
 }
