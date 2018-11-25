@@ -10,7 +10,7 @@ username: admin
 
 password: admin
 
-It is also possible to [skip the login.](https://magael.github.io/trepark) the login.
+It is also possible to [skip the login.](https://magael.github.io/trepark)
 
 ### Detailed description:
 
