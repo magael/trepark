@@ -173,6 +173,10 @@ function locate(locationWindow, map, parkingAreas, user) {
   }
 }
 
+function parkButtonTest() {
+  console.log("mmmoro")
+}
+
 function park(parkArea, user) {
   parkArea.parkHere();
   //user.setParked(true);
