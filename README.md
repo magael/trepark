@@ -10,6 +10,8 @@ username: admin
 
 password: admin
 
+It is also possible to [skip the login.]((https://magael.github.io/trepark) the login.
+
 ### Detailed description:
 
 The user is presented with mapped areas of local parking areas. The areas are color coded: green means there are plenty of spots left, yellow: some spots left and red: very few or none left. Tapping or clicking the areas will provide additional information on them.
