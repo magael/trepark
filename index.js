@@ -132,7 +132,7 @@ function initMap() {
   var centerControlDiv = document.createElement('div');
   var centerControl = new CenterControl(centerControlDiv, map);
   centerControlDiv.index = 1;
-  map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
+  map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(centerControlDiv);
 
 }
 
@@ -183,10 +183,6 @@ function locate(locationWindow, map, parkingAreas) {
       'Error: Your browser doesn\'t support geolocation.');
     locationWindow.open(map);
   }
-}
-
-function parkButtonTest() {
-  console.log("mmmoro")
 }
 
 function park(parkArea, user) {
