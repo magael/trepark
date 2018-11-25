@@ -87,6 +87,15 @@ function initMap() {
     content: parkingAreas[0].info
   });
 
+  // create user
+  var userPos = {
+    lat: 0,
+    lng: 0
+  }
+  var d = new Date();
+  var startTime = 10; // initialize test user with 10 minutes of parking time;
+  var user = new User(userPos, startTime);
+
   parkingAreas.forEach(function (element) {
     initialize(element, map, infowindow);
   });
@@ -114,7 +123,7 @@ function initMap() {
     controlUI.appendChild(controlText);
 
     controlUI.addEventListener('click', function () {
-      var pos = locate(locationWindow, map, parkingAreas);
+      var pos = locate(locationWindow, map, parkingAreas, user);
     });
   }
 
@@ -123,23 +132,9 @@ function initMap() {
   centerControlDiv.index = 1;
   map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
 
-  var centerControlDiv = document.createElement('div');
-  var centerControl = new CenterControl(centerControlDiv, map);
-  centerControlDiv.index = 1;
-  map.controls[google.maps.ControlPosition.TOP_CENTER].push(centerControlDiv);
-
-  // create user
-  var userPos = {
-    lat: 0,
-    lng: 0
-  }
-  var d = new Date();
-  var startTime = 10; // initialize test user with 10 minutes of parking time;
-  var user = new User(userPos, startTime);
-
 }
 
-function locate(locationWindow, map, parkingAreas) {
+function locate(locationWindow, map, parkingAreas, user) {
   // Try HTML5 geolocation.
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function (position) {
@@ -156,6 +151,8 @@ function locate(locationWindow, map, parkingAreas) {
       parkingAreas.forEach(function (element) {
         if (google.maps.geometry.poly.containsLocation(new google.maps.LatLng(pos.lat, pos.lng), element.polygon)) {
           locationWindow.setContent("You are inside a TrePark area. Park here to earn minutes");
+          //user.setArea(element);
+          user.area = element;
           return;
         }
       });
@@ -176,9 +173,10 @@ function locate(locationWindow, map, parkingAreas) {
   }
 }
 
-function park(parkArea) {
+function park(parkArea, user) {
   parkArea.parkHere();
-  user.setParked(true);
+  //user.setParked(true);
+  user.parked = true;
   return new ParkingEvent(user, d.getTime(), parkArea);
 }
 
@@ -188,8 +186,10 @@ function leave(parkArea) {
 
 function leave(parkArea, parkingEvent) {
   parkArea.leave();
-  user.setParked(false);
-  user.setTime(parkingEvent.getDuration);
+  //user.setParked(false);
+  //user.setTime(parkingEvent.getDuration());
+  user.parked = false;
+  user.time = parkingEvent.getDuration();
 }
 
 function initialize(parkArea, map, infowindow) {
